@@ -1,0 +1,19 @@
+App\Entity\Location:
+  properties:
+    country:
+      - NotBlank: ~
+      - Length:
+          max: 120
+          maxMessage: "Kraj nie może mieć więcej niż 120 znaków."
+      - Choice:
+          choices: ['Polska', 'United States', 'Deutschland']
+          message: "Wybierz jedną z dostępnych opcji: Polska, United States, Deutschland."
+    province:
+      - Length:
+          max: 120
+          maxMessage: "Prowincja nie może mieć więcej niż 120 znaków."
+    city:
+      - NotBlank: ~
+      - Length:
+          max: 120
+          maxMessage: "Nazwa miasta nie może mieć więcej niż 120 znaków."

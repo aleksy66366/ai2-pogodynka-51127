@@ -1,0 +1,26 @@
+App\Entity\Measurement:
+  properties:
+    location:
+      - NotBlank: ~
+    date:
+      - NotBlank: ~
+      - Type: \DateTimeInterface
+    celsius:
+      - NotBlank: ~
+      - Type: numeric
+      - Range:
+          min: -100
+          max: 100
+          notInRangeMessage: "Temperatura musi być pomiędzy -100 a 100 stopni Celsjusza."
+    rain:
+      - NotBlank: ~
+      - Type: numeric
+      - Range:
+          min: 0
+          max: 100
+          notInRangeMessage: "Wartość opadów musi być pomiędzy 0 a 100 (w procentach)."
+    cloud:
+      - NotBlank: ~
+      - Choice:
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8']
+          message: "Wybierz wartość od 0 (bezchmurnie) do 8 (zasłonięte całkowicie)."

@@ -19,7 +19,6 @@ class WeatherController extends AbstractController
         LocationRepository $locationRepository,
         MeasurementRepository $repository
     ): Response {
-        // Szukamy lokalizacji na podstawie przekazanych parametrów
         $criteria = ['city' => $city];
         if ($country) {
             $criteria['country'] = $country;
@@ -34,7 +33,6 @@ class WeatherController extends AbstractController
             throw $this->createNotFoundException('Location not found for the provided city, country, and province.');
         }
 
-        // Pobieramy pomiary dla znalezionej lokalizacji
         $measurements = $repository->findByLocation($location);
 
         return $this->render('weather/city.html.twig', [
