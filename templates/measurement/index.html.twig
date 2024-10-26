@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Measurement index</h1>
 
+    {% if is_granted('ROLE_MEASUREMENT_INDEX') %}
     <table class="table">
         <thead>
             <tr>
@@ -25,8 +26,15 @@
                 <td>{{ measurement.rain }}</td>
                 <td>{{ measurement.cloud }}</td>
                 <td>
-                    <a href="{{ path('app_measurement_show', {'id': measurement.id}) }}">show</a>
-                    <a href="{{ path('app_measurement_edit', {'id': measurement.id}) }}">edit</a>
+                    {% if is_granted('ROLE_MEASUREMENT_SHOW') %}
+                        <a href="{{ path('app_measurement_show', {'id': measurement.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_MEASUREMENT_EDIT') %}
+                        <a href="{{ path('app_measurement_edit', {'id': measurement.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_MEASUREMENT_DELETE') %}
+                        <a href="{{ path('app_measurement_delete', {'id': measurement.id}) }}" onclick="return confirm('Are you sure?');">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -36,6 +44,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 
-    <a href="{{ path('app_measurement_new') }}">Create new</a>
+    {% if is_granted('ROLE_MEASUREMENT_NEW') %}
+        <a href="{{ path('app_measurement_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

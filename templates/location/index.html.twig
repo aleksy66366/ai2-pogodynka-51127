@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Location index</h1>
-
+    {% if is_granted('ROLE_LOCATION_INDEX') %}
     <table class="table">
         <thead>
             <tr>
@@ -23,8 +23,15 @@
                 <td>{{ location.province }}</td>
                 <td>{{ location.city }}</td>
                 <td>
-                    <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
-                    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                    {% if is_granted('ROLE_LOCATION_SHOW') %}
+                        <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_LOCATION_EDIT') %}
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_LOCATION_DELETE') %}
+                        <a href="{{ path('app_location_delete', {'id': location.id}) }}" onclick="return confirm('Are you sure?');">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -34,6 +41,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 
-    <a href="{{ path('app_location_new') }}">Create new</a>
+    {% if is_granted('ROLE_LOCATION_NEW') %}
+        <a href="{{ path('app_location_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
